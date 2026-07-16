@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="EscapeTheWebsite.css" type="text/css">
+    <title>Escape the Website</title>
+</head>
+<body>
+    <div class="wrapper">
+    <script>
+        let versuche = 1;
+        let name = prompt("Geben Sie Ihren Namen ein um fortzufahren");
+
+        while (name == "" || name == null)
+        {
+            if (versuche < 5)
+                name = prompt("Bitte füllen Sie das Feld mit Ihrem Namen aus!");
+            else if (versuche < 10)
+                name = prompt("BITTE füllen Sie das Feld mit Ihrem Namen aus und NICHT leer!!!");
+            else
+                name = prompt("Wenn Sie das Feld nicht richtig ausfüllen kommen Sie nicht weiter!");
+
+            versuche++;
+        }
+
+        document.write("<h1>Escape the Website</h1>");
+        document.write("<p>Herzlich willkommen, " + name + "!</p>");
+        document.write("<p>Lösen Sie das Rätsel und Sie kommen in den nächsten Raum. Wenn Sie alle Rätsel richtig beantworten, entkommen Sie. Keiner weiß wie viele Rätsel es gibt, da noch keiner entkommen ist.</p>");
+        document.write("<p>Viel Glück! (Sie werden es brauchen)</p>");
+
+        let riddle = 1;
+        let texte;
+
+        function Fortfahren(Text1, Text2, Text3, Text4)
+        {
+            texte = [Text1, Text2, Text3, Text4]
+            document.body.innerHTML ="";
+            document.write("<link rel='stylesheet' href='EscapeTheWebsite.css' type='text/css'>");
+            document.write("<div class='wrapper'>");
+            document.write("<h1>Escape the Website</h1>");
+            document.write("<p>Jede Antwort besteht aus nur einem Wort.</p>");
+            document.write("<p>Die Groß- und Kleinschreibung der Antwort spielt keine Rolle, jedoch muss das Wort richtig geschrieben werden.</p>");
+            document.write("<p>Beispiel: Was symbolisiert das Apple Logo? Antwort: Apfel (richtig) | Apfle (falsch) | einen Apfel (falsch)</p>");
+            document.write("<p>Wenn Sie mit Namen von Personen, Flaggen, Länder usw. antworten müssen, dann schreiben Sie die Antwort ohne Leerzeichen.</p>")
+            document.write("<p>Beispiel: Wer spielt Spider-Man in Spider-Man: Far From Home? Antwort: TomHolland (richtig) | Tom Holland (falsch) | tomholland (richtig)</p><br>");
+            document.write("<h2>Rätsel " + riddle + "</h2>");
+
+            for (let i = 1; i <= 4; i++)
+            {
+                document.write("<h3>Frage " + i + ":</h3>");
+                document.write("<p>" + texte[i-1] + "</p>");
+                document.write("Lösung: <input type='text' id='antwort" + i + "'><br><br>");
+            }
+
+            document.write("<form>");
+            document.write("<input type='button' value='Antworten überprüfen' onclick='Pruefen()'>");
+            document.write("</form>");
+            document.write("</div>");
+        }
+
+        function Pruefen()
+        {
+            let richtigeAntwort = 0;
+
+            for (let i = 1; i <= 4; i++) 
+            {
+                let currentAnswer = document.getElementById("antwort" + i).value.toLowerCase();
+                let correctAnswer = RichtigeAntworten(riddle, i);
+
+                if (currentAnswer == correctAnswer) {
+                    document.getElementById("antwort" + i).style.backgroundColor = "green";
+                    richtigeAntwort++;
+                } else {
+                    document.getElementById("antwort" + i).style.backgroundColor = "red";
+                }
+            }
+
+            if (richtigeAntwort == 4)
+            {
+                alert("Sie haben Rätsel " + riddle + " gelöst!");
+                riddle++;
+
+                if (riddle == 2)
+                {
+                    Fortfahren(
+                        'Ich bin klein und bunt, manchmal klebrig, manchmal rund. Ich kann dir helfen, wenn du gestresst bist, und dich gleichzeitig nerven, wenn du mich nicht loswirst. Was bin ich?',
+                        'Manchmal zieh ich rasch vorbei, manchmal kann ich ewig sein. In Sekunden flüchtig, aber für immer da. Was bin ich?',
+                        'Ich bin so schnell, dass mich keiner einholen kann, dennoch werfe ich Schatten. Was bin ich?',
+                        'Je mehr du von mir wegnimmst, desto größer werde ich. Was bin ich?');
+                }
+                else if (riddle == 3)
+                {
+                    Fortfahren(
+                        'Was hat keinen Anfang und auch kein Ende?',
+                        'Was hat Städte, aber keine Häuser; Wälder, aber keine Bäume; und Flüsse, aber kein Wasser?',
+                        'Was ist so fragil, dass man es brechen kann, indem man nur den Klang seines Namens sagt?',
+                        'Was kann sprechen, ohne einen Mund zu haben, und hören, ohne Ohren zu haben?');
+                } 
+                else
+                {
+                    document.body.innerHTML = "";
+                    document.write("<link rel='stylesheet' href='EscapeTheWebsite.css' type='text/css'>");
+                    document.write("<div class='wrapper'>");
+                    document.write("<h1>Escape the Website</h1>");
+                    document.write("<h2>Herzlichen Glückwunsch " + name + "!</h2>");
+                    document.write("<p>Sie haben alle Rätsel gelöst und werden in 5 Sekunden freigelassen.</p>");
+                    window.setTimeout('location.href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"', 5000);
+                    document.write("</div>");
+                }
+            }
+            else 
+            {
+                alert("Sie haben " + (4 - richtigeAntwort) + " Fragen falsch beantwortet. Sie bekommen aber die Chance, die Fragen auszubessern.");
+            }
+        }
+
+        function RichtigeAntworten(riddleNumber, questionNumber) {
+            
+            const correctAnswers = [
+                ["nepal", "zypern", "rotweißrot", "libyen"],
+                ["kaugummi", "zeit", "licht", "loch"],
+                ["ring", "landkarte", "stille", "telefon"],
+            ];
+
+            return correctAnswers[riddleNumber - 1][questionNumber - 1];
+        }
+    </script>
+
+    <form>
+        <input type="button" value="Rätsel beginnen" id="btn" onclick="Fortfahren(
+            'Welche Flagge hat keine 4 Ecken?',
+            'Welches europäisches Land hat eine Flagge mit weißem Hintergrund und seiner Insel in der Mitte?',
+            'Wie ist die Farbfolge der österreichischen Flagge?',
+            'Welche Nationalflagge besteht aus nur einer Farbe und keinem Symbol wurde jedoch noch nicht anerkannt?')">
+    </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,33 @@
+@charset "utf-8";
+/* CSS Document */
+body {
+	font-family: Arial;
+    background-color: lightblue;
+}
+.wrapper {
+	width: 90%;
+	margin: auto;
+	background: white;
+	padding: 15px;
+}
+h1 {
+    text-align: center;
+    background-color: lightskyblue;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+h2 {
+    color: rgb(2, 2, 142);
+}
+h3 {
+    color: rgb(7, 7, 84);
+}
+input {
+    border-radius: 5px;
+    font-size: inherit;
+    font-family: inherit;
+}
+
+
+
+
